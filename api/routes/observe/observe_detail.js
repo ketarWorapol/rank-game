@@ -9,7 +9,7 @@ const observe_detail = require('../../models/observe/observe_detail');
 // verify by telephone
 const Nexmo = require('nexmo');
 
-var REQUEST_ID;
+var REQUEST_ID; 
 
 const nexmo = new Nexmo({
   apiKey: '7af79f82',
