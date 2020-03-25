@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 const Academy = require('../models/observe/observe_teaching');
