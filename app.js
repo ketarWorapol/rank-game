@@ -43,11 +43,13 @@ app.use(function (req, res, next) {
 const File = require('./api/routes/file/file')
 const UserRoute = require('./api/routes/user')
 const Comment = require('./api/routes/comment/comment')
+const Evaluation = require('./api/routes/evaluation/evaluation')
 
 //Route Handle
 app.use('/user', UserRoute);
 app.use('/file', File);
-app.use('/comment', Comment)
+app.use('/comment', Comment);
+app.use('/evaluation', Evaluation);
 
 //กรณีหา Route ไม่เจอ Set ERROR
 app.use((req, res, next) => {
