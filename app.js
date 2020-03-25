@@ -40,12 +40,10 @@ app.use(function(req, res, next) {
     next();
   });
 
+const UserRoute = require('./api/routes/user')
+
 //Route Handle
- app.use('/products', (req, res, next) => {
-     res.status(200).json({
-         message : "products"
-     })
- });
+ app.use('/user', UserRoute);
 
 
 //กรณีหา Route ไม่เจอ Set ERROR
