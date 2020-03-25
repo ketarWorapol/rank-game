@@ -44,12 +44,16 @@ const File = require('./api/routes/file/file')
 const UserRoute = require('./api/routes/user')
 const Comment = require('./api/routes/comment/comment')
 const Evaluation = require('./api/routes/evaluation/evaluation')
+const ObserveDetail = require('./api/routes/observe/observe_detail');
+const ObserveTeaching = require('./api/routes/observe/observe_teaching')
 
 //Route Handle
 app.use('/user', UserRoute);
 app.use('/file', File);
 app.use('/comment', Comment);
 app.use('/evaluation', Evaluation);
+app.use('/observeteaching', ObserveTeaching);
+app.use('/observe_detail', ObserveDetail);
 
 //กรณีหา Route ไม่เจอ Set ERROR
 app.use((req, res, next) => {
