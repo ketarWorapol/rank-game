@@ -3,6 +3,12 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 const User = require('../models/user');
+const Academy = require('../models/observe/observe_teaching');
+
+var accessToken = null;
+
+const flag = 1; // เปิดครั้งแรก
+let dummy;
 
 // GET ALL USER
 router.get('/', (req, res, next) => {
@@ -84,4 +90,71 @@ router.get('/', (req, res, next) => {
     })
   }
 })
+
+//CREATE USER
+router.post("/signup", (req, res, next) => {
+    console.log(req.body.place)
+    User.find({
+        email: req.body.email
+      })
+      .exec()
+      .then(user => {
+        if (user.length >= 1) {
+          return res.status(409).json({
+            message: "มีอีเมล์ดังกล่าวอยู่ในระบบแล้ว"
+          });
+        } else {
+          bcrypt.hash(req.body.password, 10, (err, hash) => {
+            if (err) {
+              return res.status(500).json({
+                error: err
+              });
+            } else {
+              const user = new User({
+                _id: new mongoose.Types.ObjectId(),
+                email: req.body.email,
+                password: hash,
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                position: req.body.position,
+                image: req.body.image,
+                role: req.body.role
+              });
+              user
+                .save()
+                .then(result => {
+                  // console.log(result);
+                  res.status(201).json({
+                    message: "User created"
+                  });
+                })
+                .catch(err => {
+                  console.log(err);
+                  res.status(500).json({
+                    error: err
+                  });
+                });
+            }
+          });
+        }
+      });
+  });
+  
+  
+  //Get Data BY user ID
+  router.get('/data', (req, res, next) => {
+    jwt.verify(accessToken, process.env.JWT_KEY, function (error, decodedToken) {
+      console.log(decodedToken.userId);
+      const userId = decodedToken.userId;
+      return User.findById({
+          _id: userId
+        })
+        .select("position role email firstname lastname observe academy created updated image")
+        .populate('academy')
+        // .exec()
+        .then(UserLogin => {
+          return res.status(200).json(UserLogin);
+        })
+    })
+  })
 module.exports = router;
