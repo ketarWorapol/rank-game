@@ -46,6 +46,9 @@ const Comment = require('./api/routes/comment/comment')
 const Evaluation = require('./api/routes/evaluation/evaluation')
 const ObserveDetail = require('./api/routes/observe/observe_detail');
 const ObserveTeaching = require('./api/routes/observe/observe_teaching')
+const OnlineLearning = require('./api/routes/online-learning/online-learning')
+const Overview = require('./api/routes/overview/overview');
+
 
 //Route Handle
 app.use('/user', UserRoute);
@@ -54,6 +57,9 @@ app.use('/comment', Comment);
 app.use('/evaluation', Evaluation);
 app.use('/observeteaching', ObserveTeaching);
 app.use('/observe_detail', ObserveDetail);
+app.use('/online-learning', OnlineLearning);
+app.use('/overview', Overview);
+
 
 //กรณีหา Route ไม่เจอ Set ERROR
 app.use((req, res, next) => {
