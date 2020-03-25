@@ -41,7 +41,11 @@ app.use(function(req, res, next) {
   });
 
 //Route Handle
-// app.use('/products', productRoutes);
+ app.use('/products', (req, res, next) => {
+     res.status(200).json({
+         message : "products"
+     })
+ });
 
 
 //กรณีหา Route ไม่เจอ Set ERROR
