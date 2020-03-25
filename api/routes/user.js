@@ -143,7 +143,6 @@ router.post("/signup", (req, res, next) => {
 		});
 });
 
-
 //Get Data BY user ID
 router.get('/data', (req, res, next) => {
 	jwt.verify(accessToken, process.env.JWT_KEY, function (error, decodedToken) {
@@ -172,6 +171,81 @@ router.get('/:userId', (req, res, next) => {
 		})
 })
 
+// change password 
+router.patch('/change_password', (req, res, next) => {
+	// req.body.old_pass = 555;
+  
+	jwt.verify(accessToken, process.env.JWT_KEY, function (error, decodedToken) {
+	  const userId = decodedToken.userId;
+	  const old_pass = req.body.old_pass;
+	  const new_pass = req.body.new_pass;
+  
+  
+	  User.findById({
+		  _id: userId
+		})
+		.then(user => {
+  
+		  const password_in_db = user.password;
+		  bcrypt.compare(old_pass, password_in_db, (err, result) => {
+			if (!result) {
+			  return res.status(401).json({
+				message: "รหัสผ่านเดิมไม่ถูกต้อง"
+			  });
+			} else
+			  // กรณีรหัสผ่านเก่าถูกแก้ไขรหัสผ่านได้
+			  bcrypt.hash(new_pass, 10, (err, hash) => {
+				if (err) {
+				  return res.status(500).json({
+					error: err
+				  });
+				} else {
+				  User.update({
+					  _id: userId
+					}, {
+					  password: hash
+					})
+					.exec()
+					.then(res.status(200).json({
+					  message: "แก้ไขรหัสผ่านเสร็จสิ้น"
+					}));
+				}
+			  });
+  
+  
+		  });
+		})
+		.catch(error => {
+		  return res.status(500).json({
+			message: error.name,
+			err: error
+		  })
+		})
+	})
+  })
+
+  // Update Data
+router.patch("/:userId", (req, res, next) => {
+	const id = req.params.userId;
+  
+	User.update({
+		_id: id
+	  }, {
+		$set: req.body
+	  })
+	  .exec()
+	  .then(result => {
+		res.status(200).json({
+		  message: "แก้ไขข้อมูลสำเร็จ",
+		})
+	  })
+	  .catch(err => {
+		res.status(500).json({
+		  message: err.name,
+		  message2: "WTF"
+		})
+	  })
+  });
 //Login
 router.post("/login", (req, res, next) => {
 	User.find({
@@ -218,4 +292,25 @@ router.post("/login", (req, res, next) => {
 			});
 		});
 });
+
+// Delete User
+router.delete('/:userId', (req, res, next) => {
+	User.remove({
+		_id: req.params.userId
+  
+	  })
+	  .exec()
+	  .then(result => {
+		res.status(200).json({
+		  message: 'User is deleted'
+		})
+		console.log("User is deleted")
+	  })
+	  .catch(err => {
+		res.status(500).json({
+		  message: err.name,
+		  error: err
+		})
+	  })
+  })
 module.exports = router;
