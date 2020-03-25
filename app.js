@@ -48,7 +48,8 @@ const ObserveDetail = require('./api/routes/observe/observe_detail');
 const ObserveTeaching = require('./api/routes/observe/observe_teaching')
 const OnlineLearning = require('./api/routes/online-learning/online-learning')
 const Overview = require('./api/routes/overview/overview');
-
+const Research = require('./api/routes/research/research');
+const TimeTable = require('./api/routes/time-table/time-table');
 
 //Route Handle
 app.use('/user', UserRoute);
@@ -59,6 +60,8 @@ app.use('/observeteaching', ObserveTeaching);
 app.use('/observe_detail', ObserveDetail);
 app.use('/online-learning', OnlineLearning);
 app.use('/overview', Overview);
+app.use('/research', Research);
+app.use('/time-table', TimeTable);
 
 
 //กรณีหา Route ไม่เจอ Set ERROR
