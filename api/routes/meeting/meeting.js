@@ -50,6 +50,7 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/google", (req, res, next) => {
+    var input = "วิทยาลัยอาชีวศึกษานครปฐม"
     var url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + input + '&key=AIzaSyAKpIWnvRRq-qnpX7XfXKpg9Vq_DYKSl74&sessiontoken=1234567890&language=th'
     $.ajax({
         url: url,
@@ -57,7 +58,10 @@ router.get("/google", (req, res, next) => {
         dataType: 'jsonp',
         cache: false,
         success: function (response) {
-            alert(response);
+            res.status(200).json({
+                message:"Just do it",
+                response
+            })
         }
     });
 });
