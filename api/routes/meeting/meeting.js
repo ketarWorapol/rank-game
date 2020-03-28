@@ -42,11 +42,24 @@ router.get("/", (req, res, next) => {
         })
         .then(result => {
             res.status(200).json({
-                total_items : result.length,
-                item : result,
+                total_items: result.length,
+                item: result,
             })
         })
 
+});
+
+router.get("/google", (req, res, next) => {
+    var url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + input + '&key=AIzaSyAKpIWnvRRq-qnpX7XfXKpg9Vq_DYKSl74&sessiontoken=1234567890&language=th'
+    $.ajax({
+        url: url,
+        type: "GET",
+        dataType: 'jsonp',
+        cache: false,
+        success: function (response) {
+            alert(response);
+        }
+    });
 });
 
 
