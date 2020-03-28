@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const request = require('request');
 
 const Meeting = require('../../models/meeting/meeting');
 
@@ -52,18 +53,13 @@ router.get("/", (req, res, next) => {
 router.get("/google", (req, res, next) => {
     var input = "วิทยาลัยอาชีวศึกษานครปฐม"
     var url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + input + '&key=AIzaSyAKpIWnvRRq-qnpX7XfXKpg9Vq_DYKSl74&sessiontoken=1234567890&language=th'
-    $.ajax({
-        url: url,
-        type: "GET",
-        dataType: 'jsonp',
-        cache: false,
-        success: function (response) {
+    request.get(url)
+        .then(result=>{
             res.status(200).json({
-                message:"Just do it",
-                response
+                message: "Hello",
+                result
             })
-        }
-    });
+        })
 });
 
 
