@@ -50,6 +50,7 @@ const OnlineLearning = require('./api/routes/online-learning/online-learning')
 const Overview = require('./api/routes/overview/overview');
 const Research = require('./api/routes/research/research');
 const TimeTable = require('./api/routes/time-table/time-table');
+const Meeting = require('./api/routes/meeting/meeting');
 
 //Route Handle
 app.use('/user', UserRoute);
@@ -62,6 +63,7 @@ app.use('/online-learning', OnlineLearning);
 app.use('/overview', Overview);
 app.use('/research', Research);
 app.use('/time-table', TimeTable);
+app.use('/meeting',Meeting)
 
 
 //กรณีหา Route ไม่เจอ Set ERROR
