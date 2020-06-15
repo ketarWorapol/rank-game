@@ -8,7 +8,8 @@ const mongoose = require('mongoose');
 // ไปดึง MONGO_PW มาจาก nodemon.json
 mongoose.connect(
         // process.env.MONGODB_URI, {
-        'mongodb+srv://ketar:' + process.env.MONGO_ATLAS_PW + '@internship-sblpt.gcp.mongodb.net/intern?retryWrites=true&w=majority', {
+            process.env.MONGODB_URI, {
+        // 'mongodb+srv://ketar:' + process.env.MONGO_ATLAS_PW + '@internship-sblpt.gcp.mongodb.net/intern?retryWrites=true&w=majority', {
             useUnifiedTopology: true,
             useNewUrlParser: true
         })
