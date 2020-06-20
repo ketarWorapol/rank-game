@@ -255,7 +255,7 @@ router.post("/login", (req, res, next) => {
 					accessToken = token;
 
 					User.update({
-						_id: id
+						_id: user[0]._id
 					  }, {
 						updated: new Date
 					  })
