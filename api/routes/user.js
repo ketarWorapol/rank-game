@@ -24,28 +24,29 @@ router.get('/', (req, res, next) => {
 	  var sp = Object.values(req.query["sp"]);
 	  var lp = Object.values(req.query["lp"]);
 	  var skip = sp * lp;
+
+	  var valueData = req.query["search"];
 	
 	  const user = User.find({
-		// $or: [{
-		// 	firstname: {
-		// 	  $regex: valueData,
-		// 	  $options: "ig",
-		// 	},
-		//   },
-		//   {
-		// 	lastname: {
-		// 	  $regex: valueData,
-		// 	  $options: "ig",
-		// 	},
-		//   },
-		//   {
-		// 	username: {
-		// 	  $regex: valueData,
-		// 	  $options: "ig",
-		// 	},
-		//   },
-		// ],
-		// role: role,
+		$or: [{
+			firstname: {
+			  $regex: valueData,
+			  $options: "ig",
+			},
+		  },
+		  {
+			lastname: {
+			  $regex: valueData,
+			  $options: "ig",
+			},
+		  },
+		  {
+			username: {
+			  $regex: valueData,
+			  $options: "ig",
+			},
+		  },
+		],
 	  }).sort({
 		firstname: 0
 	  })
@@ -98,7 +99,8 @@ router.post("/signup", (req, res, next) => {
 							lastname: req.body.lastname,
 							position: req.body.position,
 							image: req.body.image,
-							role: req.body.role
+							role: req.body.role,
+							year: req.body.year
 						});
 						user
 							.save()
