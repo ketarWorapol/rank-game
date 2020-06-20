@@ -97,7 +97,7 @@ router.post("/signup", (req, res, next) => {
 							password: hash,
 							firstname: req.body.firstname,
 							lastname: req.body.lastname,
-							position: req.body.position,
+							classroom: req.body.classroom,
 							image: req.body.image,
 							role: 1,
 							year: req.body.year
@@ -130,7 +130,7 @@ router.get('/data', (req, res, next) => {
 		return User.findById({
 				_id: userId
 			})
-			.select("position role email firstname lastname year created updated image")
+			.select("classroom role email firstname lastname year created updated image")
 			// .exec()
 			.then(UserLogin => {
 				return res.status(200).json(UserLogin);
