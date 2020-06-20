@@ -20,7 +20,6 @@ const productSchema = mongoose.Schema({
     },
     classroom: {
         type: String,
-        default: "ไม่ระบุ"
     },
     image: {
         type: String
