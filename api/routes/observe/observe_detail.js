@@ -49,7 +49,7 @@ router.get("/", (req, res, next) => {
     })
 });
 
-// หารายละเอียดการสังเกตการสอน
+// สังเกตการสอนทั้งหมด
 router.get("/:userId", (req, res, next) => {
     const userId = req.params.userId;
     observe_detail.find({
@@ -81,6 +81,24 @@ router.get("/:userId", (req, res, next) => {
             })
         })
 });
+
+// สังเกตการสอนจาก ID
+router.get("/data/:_id", (req, res, next)=>{
+    const _id = req.params._id;
+    observe_detail.findOne({
+        _id:_id
+    })
+    .then(result=>{
+        res.status(200).json({
+            item: result
+        })
+    }).catch(err => {
+        res.status(500).json({
+            message: err.name,
+            error:err
+        })
+    })
+})
 
 //ส่ง verify code
 router.post("/verify", (req, res, next)=> {
