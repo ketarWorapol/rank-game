@@ -71,6 +71,8 @@ router.get('/', (req, res, next) => {
 	  });
 })
 
+router.get('/')
+
 //CREATE USER
 router.post("/signup", (req, res, next) => {
 	console.log(req.body.place)
@@ -99,7 +101,7 @@ router.post("/signup", (req, res, next) => {
 							lastname: req.body.lastname,
 							position: req.body.position,
 							image: req.body.image,
-							role: req.body.role,
+							role: 1,
 							year: req.body.year
 						});
 						user
