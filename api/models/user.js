@@ -29,6 +29,9 @@ const productSchema = mongoose.Schema({
         type: String,
         default: "1"
     },
+    year:{
+        type:String
+    },
 
     academy: {
         type: mongoose.Schema.Types.ObjectId,

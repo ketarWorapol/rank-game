@@ -151,8 +151,7 @@ router.get('/data', (req, res, next) => {
 		return User.findById({
 				_id: userId
 			})
-			.select("position role email firstname lastname observe academy created updated image")
-			.populate('academy')
+			.select("position role email firstname lastname year academy created updated image")
 			// .exec()
 			.then(UserLogin => {
 				return res.status(200).json(UserLogin);
@@ -227,7 +226,7 @@ router.patch('/change_password', (req, res, next) => {
   // Update Data
 router.patch("/:userId", (req, res, next) => {
 	const id = req.params.userId;
-  
+	console.log(id)
 	User.update({
 		_id: id
 	  }, {
