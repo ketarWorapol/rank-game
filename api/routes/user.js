@@ -14,17 +14,11 @@ let dummy;
 
 // GET ALL USER
 router.get('/', (req, res, next) => {
-	var keyData = Object.keys(req.query)[0];
-	var valueData = Object.values(req.query)[0];
+	var keyData = Object.keys(req.query)[2];
+	var valueData = Object.values(req.query)[2];
 
-	if (!req.query.email) {
-		console.log("Tell me what you feel")
-		req.query.email = "";
-		// return;
-	}
-
-	var startPage = Object.values(req.query)[1] - 1;
-	var limitPage = Object.values(req.query)[2];
+	var startPage = Object.values(req.query)[0];
+	var limitPage = Object.values(req.query)[1];
 	var skip = startPage * limitPage;
 	// console.log(req.query.length)
 	// console.log(startPage)
@@ -151,7 +145,7 @@ router.get('/data', (req, res, next) => {
 		return User.findById({
 				_id: userId
 			})
-			.select("position role email firstname lastname year academy created updated image")
+			.select("position role email firstname lastname year created updated image")
 			// .exec()
 			.then(UserLogin => {
 				return res.status(200).json(UserLogin);
@@ -245,6 +239,7 @@ router.patch("/:userId", (req, res, next) => {
 		})
 	  })
   });
+
 //Login
 router.post("/login", (req, res, next) => {
 	User.find({

@@ -33,10 +33,8 @@ const productSchema = mongoose.Schema({
         type:String
     },
 
-    academy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Academy',
-        // required: true
+    detail: {
+        type: Object,
     },
 
     observe: [{
