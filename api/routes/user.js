@@ -145,6 +145,25 @@ router.get("/classroom/", (req, res, next) => {
   });
 });
 
+//ค้นหาด้วยห้องเรียน
+router.get("/user/year", (req, res, next) => {
+  const user = User.aggregate([
+    { 
+		$group:{
+			_id:{year:{$year:"2563"}}
+		},
+		// $group: {_id:{year:"$year"}}
+	}
+  ])
+
+  user.then((result) => {
+    return res.status(200).json({
+      total_items: result.length,
+      items: result,
+    });
+  });
+});
+
 //CREATE USER
 router.post("/signup", (req, res, next) => {
   console.log(req.body.place);

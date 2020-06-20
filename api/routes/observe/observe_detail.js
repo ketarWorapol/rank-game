@@ -55,6 +55,7 @@ router.get("/:userId", (req, res, next) => {
     observe_detail.find({
             user: userId
         })
+        .select("class hour subject title teacher_name verify")
         // .populate('user','firstname lastname')
         .sort({
             observe_date: -1
@@ -69,7 +70,7 @@ router.get("/:userId", (req, res, next) => {
             }
 
             res.status(200).json({
-                totalItems: totalItem,
+                total_items: totalItem,
                 totalHour: totalHour,
                 items: item
             });
