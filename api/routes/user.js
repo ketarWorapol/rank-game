@@ -14,77 +14,60 @@ let dummy;
 
 // GET ALL USER
 router.get('/', (req, res, next) => {
-	var keyData = Object.keys(req.query)[2];
-	var valueData = Object.values(req.query)[2];
-
-	var startPage = Object.values(req.query)[0];
-	var limitPage = Object.values(req.query)[1];
-	var skip = startPage * limitPage;
-	// console.log(req.query.length)
-	// console.log(startPage)
-
-	try {
-		// กรณี Search
-		if ((flag == 1 && dummy == 1)) {
-			const temp = User
-				.find({
-					[keyData]: {
-						'$regex': valueData
-					}
-				})
-				.populate('academy')
-
-			temp.then(items => {
-					const totalItem = items.length;
-					temp
-						.skip(Number(skip))
-						.limit(Number(limitPage))
-						.then(item => {
-							return res.status(200).json({
-								totalItems: totalItem,
-								items: item
-							});
-						})
-				})
-				.catch(err => {
-					res.status(500).json({
-						message: err.name
-					})
-				})
-		} else { // กรณียังไม่ได้ Search
-			dummy = 1;
-			User
-				.find()
-				.exec()
-				.then(items => {
-					const totalItem = items.length;
-					User
-						.find()
-						.populate('academy')
-						.skip(0)
-						.limit(Number(limitPage))
-						.then(item => {
-							return res.status(200).json({
-								totalItems: totalItem,
-								items: item
-							});
-						})
-
-				})
-				.catch(err => {
-					res.status(500).json({
-						message: err.name
-					})
-				})
-		}
-	} catch {
-		User.find()
-			.then(item => {
-				return res.status(200).json({
-					item
-				})
-			})
-	}
+	if (!req.query["sp"] || !req.query["lp"]) {
+		res.status(200).json({
+		  code: "Error !",
+		  message: "Missing request query parameter",
+		});
+	  }
+	
+	  var sp = Object.values(req.query["sp"]);
+	  var lp = Object.values(req.query["lp"]);
+	  var skip = sp * lp;
+	
+	  const user = User.find({
+		// $or: [{
+		// 	firstname: {
+		// 	  $regex: valueData,
+		// 	  $options: "ig",
+		// 	},
+		//   },
+		//   {
+		// 	lastname: {
+		// 	  $regex: valueData,
+		// 	  $options: "ig",
+		// 	},
+		//   },
+		//   {
+		// 	username: {
+		// 	  $regex: valueData,
+		// 	  $options: "ig",
+		// 	},
+		//   },
+		// ],
+		// role: role,
+	  }).sort({
+		firstname: 0
+	  })
+	  .select('firstname lastname year detail');
+	
+	  user.then((result) => {
+		const totalItem = result.length;
+		user
+		  .skip(Number(skip))
+		  .limit(Number(lp))
+		  .then((items) => {
+			return res.status(200).json({
+			  total_items: totalItem,
+			  items: items,
+			});
+		  })
+		  .catch((err) => {
+			res.status(500).json({
+			  message: err.message,
+			});
+		  });
+	  });
 })
 
 //CREATE USER
