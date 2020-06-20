@@ -71,8 +71,6 @@ router.get('/', (req, res, next) => {
 	  });
 })
 
-router.get('/')
-
 //CREATE USER
 router.post("/signup", (req, res, next) => {
 	console.log(req.body.place)

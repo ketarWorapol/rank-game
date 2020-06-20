@@ -18,7 +18,7 @@ const productSchema = mongoose.Schema({
     lastname: {
         type: String
     },
-    position: {
+    classroom: {
         type: String,
         default: "ไม่ระบุ"
     },
