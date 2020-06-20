@@ -71,6 +71,66 @@ router.get('/', (req, res, next) => {
 	  });
 })
 
+router.get('/classroom/', (req, res, next)=>{
+	if (!req.query["sp"] || !req.query["lp"]) {
+		res.status(200).json({
+		  code: "Error !",
+		  message: "Missing request query parameter",
+		});
+	  }
+	
+	  var sp = Object.values(req.query["sp"]);
+	  var lp = Object.values(req.query["lp"]);
+	  var skip = sp * lp;
+
+	  var valueData = req.query["search"];
+	  var classroom = req.query["classroom"];
+	
+	  const user = User.find({
+		$or: [{
+			firstname: {
+			  $regex: valueData,
+			  $options: "ig",
+			},
+		  },
+		  {
+			lastname: {
+			  $regex: valueData,
+			  $options: "ig",
+			},
+		  },
+		  {
+			username: {
+			  $regex: valueData,
+			  $options: "ig",
+			},
+		  },
+		],
+		classroom: classroom
+	  }).sort({
+		firstname: 0
+	  })
+	  .select('firstname lastname classroom year detail updated');
+	
+	  user.then((result) => {
+		const totalItem = result.length;
+		user
+		  .skip(Number(skip))
+		  .limit(Number(lp))
+		  .then((items) => {
+			return res.status(200).json({
+			  total_items: totalItem,
+			  items: items,
+			});
+		  })
+		  .catch((err) => {
+			res.status(500).json({
+			  message: err.message,
+			});
+		  });
+	  });
+})
+
 //CREATE USER
 router.post("/signup", (req, res, next) => {
 	console.log(req.body.place)
