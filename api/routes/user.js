@@ -50,7 +50,7 @@ router.get('/', (req, res, next) => {
 	  }).sort({
 		firstname: 0
 	  })
-	  .select('firstname lastname year detail');
+	  .select('firstname lastname classroom year detail updated');
 	
 	  user.then((result) => {
 		const totalItem = result.length;
@@ -253,6 +253,14 @@ router.post("/login", (req, res, next) => {
 						}
 					);
 					accessToken = token;
+
+					User.update({
+						_id: id
+					  }, {
+						updated: new Date
+					  })
+					  .exec()
+
 					return res.status(200).json({
 						message: "Auth successful",
 						userId: user[0]._id,
