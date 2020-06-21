@@ -56,6 +56,7 @@ router.post("/", (req, res, next) => {
       course: req.body.course,
       title: req.body.title,
       url: req.body.url,
+      detail: req.body.detail,
       user: req.body.user
   })
 
