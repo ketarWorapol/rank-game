@@ -57,7 +57,7 @@ router.get("/", (req, res, next) => {
     .sort({
       firstname: 0,
     })
-    .select("firstname lastname classroom year detail updated");
+    .select("firstname lastname role classroom year detail updated");
 
   user.then((result) => {
     const totalItem = result.length;
