@@ -34,7 +34,7 @@ router.get("/:id", (req, res, next) => {
 })
 
 // get by id
-router.get("/item/:id", (req, res, next)=>{
+router.get("/item/:_id", (req, res, next)=>{
     const _id = req.params._id;
     Research.findOne({
         _id: _id
