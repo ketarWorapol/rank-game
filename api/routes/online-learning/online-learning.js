@@ -4,11 +4,13 @@ const mongoose = require("mongoose");
 
 const OnlineLearning = require("../../models/online-learning/online-learning");
 
+// get all by user id
 router.get("/:_id",  (req, res, next) => {
     const _id = req.params._id;
     OnlineLearning.find({
         user: _id
     })
+    .select("course title date")
     .populate('user', 'firstname lastname email')
     .sort({
         date: -1
@@ -28,6 +30,24 @@ router.get("/:_id",  (req, res, next) => {
         })
     })
 });
+
+// get by teaching id
+router.get("/teaching/:_id", (req, res, next)=>{
+    const _id = req.params._id;
+    OnlineLearning.findOne({
+        _id: _id
+    })
+    .then(item=>{
+        res.status(200).json({
+            item:item
+        })
+    }).catch(err => {
+        res.status(500).json({
+            message: err.name,
+            error: err
+        })
+    })
+})
 
 router.delete("/:_id", (req, res, next)=> {
     const _id = req.params._id;
