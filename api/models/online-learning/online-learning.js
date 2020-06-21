@@ -5,7 +5,6 @@ const OnlineLearningSchema = mongoose.Schema({
     date: Date,
     course: String,
     title: String,
-    url: String,
     detail:String,
     user: {
         type: mongoose.Schema.Types.ObjectId,

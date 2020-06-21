@@ -55,7 +55,6 @@ router.post("/", (req, res, next) => {
       date: req.body.date,
       course: req.body.course,
       title: req.body.title,
-      url: req.body.url,
       detail: req.body.detail,
       user: req.body.user
   })
@@ -69,7 +68,6 @@ router.post("/", (req, res, next) => {
                 date: result.date,
                 course: result.course,
                 title: result.title,
-                url: result.url,
             }
         });
     })
