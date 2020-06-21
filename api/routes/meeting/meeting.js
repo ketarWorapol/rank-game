@@ -33,6 +33,23 @@ router.post("/", (req, res, next) => {
         })
 })
 
+router.delete("/:_id", (req, res, next)=>{
+    var _id = req.params._id
+    Meeting.deleteOne({
+        _id: _id
+    })
+    .then(result=>{
+        res.status(200).json({
+            message:"ลบข้อมูลสำเร็จ !",
+        })
+    }).catch(err=>{
+        res.status(500).json({
+            message:"ลบข้อมูลเกิดการผิดพลาด",
+            err:err.name
+        })
+    })
+})
+
 // หารายละเอียดการสังเกตการสอน
 router.get("/", (req, res, next) => {
 
