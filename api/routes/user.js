@@ -225,7 +225,7 @@ router.get("/data", (req, res, next) => {
         _id: userId,
       })
         .select(
-          "classroom role email firstname lastname year created updated image"
+          "classroom role email firstname lastname year detail created updated image"
         )
         // .exec()
         .then((UserLogin) => {
