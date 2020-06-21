@@ -38,8 +38,9 @@ router.post("/", (req, res, next) => {
         title: req.body.title,
         chapter: req.body.chapter,
         date: new Date,
-        user: req.body.user,
-        status: req.body.status,
+        detail: req.body.detail,
+        user:req.body.user,
+        status: 0,
         url: req.body.url
     })
 

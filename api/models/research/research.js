@@ -7,11 +7,8 @@ const researchSchema = mongoose.Schema({
         type: Number
     },
     date: Date,
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        require: true
-    },
+    detail:String,
+    user:String,
     status: Number,
     url: String
 })

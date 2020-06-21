@@ -26,7 +26,8 @@ const productSchema = mongoose.Schema({
     },
     role: {
         type: String,
-        default: "1"
+        default: "1" 
+        //1 = นักศึกษา 2 = admin
     },
     year:{
         type:String
