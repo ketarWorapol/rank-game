@@ -15,6 +15,7 @@ router.get("/", (req, res, next) => {
         })
 })
 
+// get by user id
 router.get("/:id", (req, res, next) => {
     const id = req.params.id;
     Research.find({
@@ -28,6 +29,19 @@ router.get("/:id", (req, res, next) => {
         res.status(200).json({
             totalItem: totalItem,
             items: item
+        })
+    })
+})
+
+// get by id
+router.get("/item/:id", (req, res, next)=>{
+    const _id = req.params._id;
+    Research.findOne({
+        _id: _id
+    })
+    .then(result=>{
+        res.status(200).json({
+            item:result
         })
     })
 })
