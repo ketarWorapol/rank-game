@@ -304,7 +304,6 @@ router.patch("/change_password", (req, res, next) => {
 // Update Data
 router.patch("/:userId", (req, res, next) => {
   const id = req.params.userId;
-  console.log(id);
   User.update(
     {
       _id: id,
@@ -326,6 +325,26 @@ router.patch("/:userId", (req, res, next) => {
       });
     });
 });
+
+router.patch('/profile/:_id', (req, res, next)=>{
+  const _id = req.params._id;
+  User.update({
+    _id: _id
+  },
+  {
+    $set: req.body
+  })
+  .exec()
+  .then(result=>{
+    res.status(200).json({
+      message:"แก้ไขข้อมูลสำเร็จ"
+    })
+  }).catch(err=>{
+    res.status(500).json({
+      message: err.name
+    })
+  })
+})
 
 //Login
 router.post("/login", (req, res, next) => {
